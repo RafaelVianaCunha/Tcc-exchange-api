@@ -6,6 +6,6 @@ namespace ExchangeApi.Application.Services
 {
     public interface IExchangeUpdate
     {
-        Task<Exchange> Update(Guid exchangeId, ExchangeModel exchangeModel);
+        Task<Exchange> Update(Exchange exchange, ExchangeModel exchangeModel);
     }
 }

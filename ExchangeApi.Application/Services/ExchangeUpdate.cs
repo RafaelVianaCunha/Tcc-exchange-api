@@ -9,18 +9,13 @@ namespace ExchangeApi.Application.Services
     {
         IExchangeWriter ExchangeWrite { get; }
 
-        IExchangeReader ExchangeReader { get; }
-
-        public ExchangeUpdate(IExchangeWriter exchangeWrite, IExchangeReader exchangeReader)
+        public ExchangeUpdate(IExchangeWriter exchangeWrite)
         {
             ExchangeWrite = exchangeWrite;
-            ExchangeReader = exchangeReader;
         }
 
-        public async Task<Exchange> Update(Guid exchangeId, ExchangeModel exchangeModel)
+        public async Task<Exchange> Update(Exchange exchange, ExchangeModel exchangeModel)
         {
-            var exchange = await ExchangeReader.Get(exchangeId);
-
             var exchangeWithNewName = exchange.WithName(exchangeModel.Name);
 
             return await ExchangeWrite.Update(exchangeWithNewName);
