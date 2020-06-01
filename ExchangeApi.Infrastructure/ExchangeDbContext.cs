@@ -9,10 +9,6 @@ namespace ExchangeApi.Infrastructure
     {
         public DbSet<Exchange> Exchanges { get; }
 
-        public ExchangeDbContext([NotNullAttribute] DbContextOptions options) : base(options)
-        {
-        }
-
         protected ExchangeDbContext()
         {
         }

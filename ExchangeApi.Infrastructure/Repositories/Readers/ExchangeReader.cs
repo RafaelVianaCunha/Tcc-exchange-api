@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using ExchangeApi.Domain.Repositories;
 using ExchangeApi.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace ExchangeApi.Infrastructure
 {
@@ -10,24 +11,29 @@ namespace ExchangeApi.Infrastructure
     {
         public ExchangeDbContext ExchangeDbContext { get; }
 
+        public ExchangeReader(ExchangeDbContext exchangeDbContext)
+        {
+            ExchangeDbContext = exchangeDbContext;
+        }
+
         public Task<bool> Any(Guid exchangeId)
         {
-            throw new NotImplementedException();
+            return ExchangeDbContext.Exchanges.AnyAsync(x => x.Id == exchangeId);
         }
 
         public Task<Exchange> Get(Guid exchangeId)
         {
-            throw new NotImplementedException();
+            return ExchangeDbContext.Exchanges.SingleOrDefaultAsync(x => x.Id == exchangeId);
         }
 
         public Task<Exchange> Get(string exchangeName)
         {
-            throw new NotImplementedException();
+            return ExchangeDbContext.Exchanges.SingleOrDefaultAsync(x => x.Name == exchangeName);
         }
 
-        public Task<IReadOnlyCollection<Exchange>> Get()
+        public async Task<IReadOnlyCollection<Exchange>> Get()
         {
-            throw new NotImplementedException();
+           return await ExchangeDbContext.Exchanges.ToListAsync();
         }
     }
 }
