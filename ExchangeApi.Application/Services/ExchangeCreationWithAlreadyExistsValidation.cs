@@ -5,14 +5,15 @@ using ExchangeApi.Domain.Repositories;
 
 namespace ExchangeApi.Application.Services 
 {
-    public class ExchangeCreationWithAlreadyExists 
+    public class ExchangeCreationWithAlreadyExists : IExchangeCreation
     {
         public IExchangeReader ExchangeReader { get; }
 
         public IExchangeCreation ExchangeCreation { get; }
 
-        public ExchangeCreationWithAlreadyExists(IExchangeReader exchangeReader)
+        public ExchangeCreationWithAlreadyExists(IExchangeCreation exchangeCreation, IExchangeReader exchangeReader)
         {
+            ExchangeCreation = exchangeCreation;
             ExchangeReader = exchangeReader;
         }
 

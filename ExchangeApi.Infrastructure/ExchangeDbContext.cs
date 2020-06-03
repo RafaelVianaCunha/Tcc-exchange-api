@@ -5,11 +5,15 @@ using ExchangeApi.Domain.Entities;
 
 namespace ExchangeApi.Infrastructure
 {
-    public class ExchangeDbContext : DbContext
+    public class ExchangeDbContext : DbContext , IDisposable
     {
         public DbSet<Exchange> Exchanges { get; }
 
         protected ExchangeDbContext()
+        {
+        }
+
+        public ExchangeDbContext(DbContextOptions options) : base(options)
         {
         }
         

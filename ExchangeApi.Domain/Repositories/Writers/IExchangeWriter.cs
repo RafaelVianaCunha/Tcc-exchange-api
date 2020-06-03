@@ -8,5 +8,7 @@ namespace ExchangeApi.Domain.Repositories
         Task<Exchange> Create(Exchange exchange);
 
         Task<Exchange> Update(Exchange exchange);
+
+        Task<Exchange> Delete(Exchange exchange);
     }
 }

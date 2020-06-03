@@ -7,34 +7,78 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.DependencyInjection;
+using SimpleInjector;
+using ExchangeApi.Infrastructure;
+using Microsoft.EntityFrameworkCore;
+using ExchangeApi.Domain.Repositories;
+using ExchangeApi.Infrastructure.Repositories.Writers;
+using ExchangeApi.Application.Services;
+using SimpleInjector.Lifestyles;
 
 namespace ExchangeApi
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
+        Container container = new SimpleInjector.Container();
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-        }
 
-        public IConfiguration Configuration { get; }
+            container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
+
+        }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddSimpleInjector(container, options => {
+                options
+                    .AddAspNetCore()
+                    .AddControllerActivation()
+                    .AddViewComponentActivation();
+            });
+
+            InitializeContainer();
+        }
+
+        private void InitializeContainer()
+        {
+            container.Register<ExchangeDbContext>(() => {
+                var connectionString = Configuration.GetSection("ExchangeDb").ToString();
+            
+                var optionsBuilder = new DbContextOptionsBuilder<ExchangeDbContext>();
+                optionsBuilder.UseSqlite(connectionString);
+
+                return new ExchangeDbContext(optionsBuilder.Options);
+            }, Lifestyle.Scoped);
+
+            container.Register<IExchangeWriter, ExchangeWriter>();
+            container.Register<IExchangeReader, ExchangeReader>();
+        
+            container.RegisterDecorator<IExchangeCreation, ExchangeCreationWithAlreadyExists>();
+            container.Register<IExchangeCreation, ExchangeCreation>();
+            container.Register<IExchangeDelete, ExchangeDelete>();
+            container.Register<IExchangeUpdate, ExchangeUpdate>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseSimpleInjector(container);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+
 
             app.UseHttpsRedirection();
 
@@ -46,6 +90,8 @@ namespace ExchangeApi
             {
                 endpoints.MapControllers();
             });
+
+            container.Verify();
         }
     }
 }

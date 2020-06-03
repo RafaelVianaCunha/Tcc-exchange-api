@@ -31,5 +31,11 @@ namespace ExchangeApi.Infrastructure.Repositories.Writers
 
             return exchange;
         }
+
+        
+        public async Task<Exchange> Delete(Exchange exchange)
+        {
+            return await Update(exchange.Delete());
+        }
     }
 }
