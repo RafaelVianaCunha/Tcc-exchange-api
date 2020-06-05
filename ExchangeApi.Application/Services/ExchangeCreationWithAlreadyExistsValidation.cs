@@ -19,7 +19,7 @@ namespace ExchangeApi.Application.Services
 
         public async Task<Exchange> Create(ExchangeModel exchangeModel)
         {
-            var exchange = ExchangeReader.Get(exchangeModel.Name);
+            var exchange = await ExchangeReader.Get(exchangeModel.Name);
 
             if (exchange != null)
                 throw new Exception();

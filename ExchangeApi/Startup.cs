@@ -52,10 +52,10 @@ namespace ExchangeApi
         private void InitializeContainer()
         {
             container.Register<ExchangeDbContext>(() => {
-                var connectionString = Configuration.GetSection("ExchangeDb").ToString();
+                var connectionString = Configuration.GetSection("ExchangeDb").Value.ToString();
             
                 var optionsBuilder = new DbContextOptionsBuilder<ExchangeDbContext>();
-                optionsBuilder.UseSqlite(connectionString);
+                optionsBuilder.UseSqlServer(connectionString);
 
                 return new ExchangeDbContext(optionsBuilder.Options);
             }, Lifestyle.Scoped);
@@ -78,9 +78,6 @@ namespace ExchangeApi
             {
                 app.UseDeveloperExceptionPage();
             }
-
-
-            app.UseHttpsRedirection();
 
             app.UseRouting();
 

@@ -16,11 +16,14 @@ namespace ExchangeApi.Controllers
 
         public IExchangeUpdate ExchangeUpdate { get; }
 
-        public ExchangeController(IExchangeCreation exchangeCreation, IExchangeReader exchangeReader, IExchangeUpdate exchangeUpdate)
+        public IExchangeDelete ExchangeDelete { get; }
+
+        public ExchangeController(IExchangeCreation exchangeCreation, IExchangeReader exchangeReader, IExchangeUpdate exchangeUpdate, IExchangeDelete exchangeDelete)
         {
             ExchangeCreation = exchangeCreation;
             ExchangeReader = exchangeReader;
             ExchangeUpdate = exchangeUpdate;
+            ExchangeDelete = exchangeDelete;
         }
 
         [HttpPost]
@@ -45,6 +48,43 @@ namespace ExchangeApi.Controllers
 
             var exchangeUpdated = await ExchangeUpdate.Update(exchange, exchangeModel);
 
+            return Ok(exchange);
+        }
+
+        [HttpDelete]
+        [Route("{exchangeId}")]
+        public async Task<IActionResult> Delete(Guid exchangeId)
+        {
+            var exchange = await ExchangeReader.Get(exchangeId);
+
+            if (exchange == null) 
+            {
+                return NotFound();
+            }
+
+            var exchangeDelete = await ExchangeDelete.Delete(exchange);
+
+            return Ok(exchange);
+        }
+
+
+        [HttpGet]
+        [Route("{exchangeId}")]
+        public async Task<IActionResult> Get(Guid exchangeId)
+        {
+            var exchange = await ExchangeReader.Get(exchangeId);
+
+            if (exchange == null) 
+            {
+                return NotFound();
+            }
+            return Ok(exchange);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var exchange = await ExchangeReader.Get();
             return Ok(exchange);
         }
     }

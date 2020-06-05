@@ -4,13 +4,13 @@ namespace ExchangeApi.Domain.Entities
 {
     public class Exchange
     {
-        public Guid Id { get; }
+        public Guid Id { get; private set; }
 
-        public DateTime CreatedAt { get; }
+        public DateTime CreatedAt { get; private set; }
 
-        public string Name { get; }
+        public string Name { get; private set; }
 
-        public DateTime? DeletedAt { get; }
+        public DateTime? DeletedAt { get; private set; }
 
         public Exchange(string name)
         {
@@ -43,21 +43,16 @@ namespace ExchangeApi.Domain.Entities
 
         public Exchange WithName(string name)
         {
-            return new Exchange(
-                Id,
-                CreatedAt,
-                name
-            );
+            Name = name;
+
+            return this;
         }
 
         public Exchange Delete()
         {
-            return new Exchange(
-                Id,
-                CreatedAt,
-                Name,
-                DateTime.UtcNow
-            );
+            DeletedAt = DateTime.UtcNow;
+
+            return this;
         }
     }
 }

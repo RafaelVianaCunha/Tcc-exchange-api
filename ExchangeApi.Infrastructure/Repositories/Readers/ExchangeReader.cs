@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using ExchangeApi.Domain.Repositories;
 using ExchangeApi.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace ExchangeApi.Infrastructure
 {
@@ -33,7 +34,7 @@ namespace ExchangeApi.Infrastructure
 
         public async Task<IReadOnlyCollection<Exchange>> Get()
         {
-           return await ExchangeDbContext.Exchanges.ToListAsync();
+           return await ExchangeDbContext.Exchanges.Where(x => x.DeletedAt != null).ToListAsync();
         }
     }
 }
