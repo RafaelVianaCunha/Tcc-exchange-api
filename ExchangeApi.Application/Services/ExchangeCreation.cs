@@ -15,7 +15,7 @@ namespace ExchangeApi.Application.Services
 
         public Task<Exchange> Create(ExchangeModel exchangeModel)
         {
-            var exchange = new Exchange(exchangeModel.Name);
+            var exchange = new Exchange(exchangeModel.UserId, exchangeModel.ApiKey, exchangeModel.ApiSecret, exchangeModel.Name);
 
             return ExchangeWriter.Create(exchange);
         }

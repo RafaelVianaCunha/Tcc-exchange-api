@@ -66,7 +66,6 @@ namespace ExchangeApi
             container.RegisterDecorator<IExchangeCreation, ExchangeCreationWithAlreadyExists>();
             container.Register<IExchangeCreation, ExchangeCreation>();
             container.Register<IExchangeDelete, ExchangeDelete>();
-            container.Register<IExchangeUpdate, ExchangeUpdate>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -16,9 +16,11 @@ namespace ExchangeApi.Application.Services
 
         public async Task<Exchange> Update(Exchange exchange, ExchangeModel exchangeModel)
         {
-            var exchangeWithNewName = exchange.WithName(exchangeModel.Name);
+            exchange.UserId = exchangeModel.UserId;
+            exchange.ApiSecret = exchangeModel.ApiSecret;
+            exchange.ApiSecret = exchangeModel.ApiSecret;
 
-            return await ExchangeWrite.Update(exchangeWithNewName);
+            return await ExchangeWrite.Update(exchange);
         }
     }
 }

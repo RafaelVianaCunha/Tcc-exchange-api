@@ -9,8 +9,6 @@ namespace ExchangeApi.Domain.Repositories
     {
         Task<Exchange> Get(Guid exchangeId);
 
-        Task<Exchange> Get(string exchangeName);
-
         Task<IReadOnlyCollection<Exchange>> Get();
 
         Task<bool> Any(Guid exchangeId);

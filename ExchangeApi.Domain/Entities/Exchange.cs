@@ -5,26 +5,34 @@ namespace ExchangeApi.Domain.Entities
     public class Exchange
     {
         public Guid Id { get; private set; }
-
+        public Guid UserId { get; set ; }
+        public String ApiKey { get; set; }  
+        public String ApiSecret { get; set; }
+        public String Name { get; set; }
         public DateTime CreatedAt { get; private set; }
-
-        public string Name { get; private set; }
-
         public DateTime? DeletedAt { get; private set; }
 
-        public Exchange(string name)
+        public Exchange(Guid userId , String apiKey, String apiSecret, String name)
         {
             Id = Guid.NewGuid();
-            CreatedAt = DateTime.UtcNow;
+            UserId = Guid.NewGuid();
+            ApiKey = apiKey;
+            ApiSecret = apiSecret;
             Name = name;
+            CreatedAt = DateTime.UtcNow;
         }
-
         private Exchange(
-            Guid id, 
-            DateTime createdAt, 
-            string name)
+            Guid id,
+            Guid userId, 
+            String apiKey,  
+            String apiSecret,
+            String name,
+            DateTime createdAt)
         {
             Id = id;
+            UserId = userId;
+            ApiKey = apiKey;
+            ApiSecret = apiSecret;
             CreatedAt = createdAt;
             Name = name;
         }
@@ -32,26 +40,16 @@ namespace ExchangeApi.Domain.Entities
         private Exchange(
             Guid id, 
             DateTime createdAt, 
-            string name,
             DateTime deletedAt)
         {
             Id = id;
             CreatedAt = createdAt;
-            Name = name;
             DeletedAt = deletedAt;
-        }
-
-        public Exchange WithName(string name)
-        {
-            Name = name;
-
-            return this;
         }
 
         public Exchange Delete()
         {
             DeletedAt = DateTime.UtcNow;
-
             return this;
         }
     }

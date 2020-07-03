@@ -13,7 +13,9 @@ namespace ExchangeApi.Infrastructure
             builder.HasKey(x => x.Id);
             
             builder.Property(x => x.CreatedAt);
-            builder.Property(x => x.Name);
+            builder.Property(x => x.UserId);
+            builder.Property(x => x.ApiKey);
+            builder.Property(x => x.ApiSecret);
             builder.Property(x => x.DeletedAt);
         }
 

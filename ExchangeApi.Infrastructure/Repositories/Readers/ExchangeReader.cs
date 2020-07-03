@@ -27,11 +27,6 @@ namespace ExchangeApi.Infrastructure
             return ExchangeDbContext.Exchanges.SingleOrDefaultAsync(x => x.Id == exchangeId);
         }
 
-        public Task<Exchange> Get(string exchangeName)
-        {
-            return ExchangeDbContext.Exchanges.SingleOrDefaultAsync(x => x.Name == exchangeName);
-        }
-
         public async Task<IReadOnlyCollection<Exchange>> Get()
         {
            return await ExchangeDbContext.Exchanges.Where(x => x.DeletedAt != null).ToListAsync();
