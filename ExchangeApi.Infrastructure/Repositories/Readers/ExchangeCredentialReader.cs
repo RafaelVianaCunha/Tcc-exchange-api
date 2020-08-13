@@ -8,11 +8,11 @@ using System.Linq;
 
 namespace ExchangeApi.Infrastructure
 {
-    public class ExchangeReader : IExchangeReader
+    public class ExchangeCredentialReader : IExchangeCredentialReader
     {
         public ExchangeDbContext ExchangeDbContext { get; }
 
-        public ExchangeReader(ExchangeDbContext exchangeDbContext)
+        public ExchangeCredentialReader(ExchangeDbContext exchangeDbContext)
         {
             ExchangeDbContext = exchangeDbContext;
         }
@@ -30,6 +30,12 @@ namespace ExchangeApi.Infrastructure
         public async Task<IReadOnlyCollection<ExchangeCredential>> Get()
         {
            return await ExchangeDbContext.Exchanges.Where(x => x.DeletedAt != null).ToListAsync();
+        }
+
+        public Task<ExchangeCredential> GetByUserID(Guid userID)
+        {
+            return ExchangeDbContext.Exchanges.SingleOrDefaultAsync(x => x.UserId == userID);
+
         }
     }
 }

@@ -61,10 +61,10 @@ namespace ExchangeApi
             }, Lifestyle.Scoped);
 
             container.Register<IExchangeWriter, ExchangeWriter>();
-            container.Register<IExchangeReader, ExchangeReader>();
+            container.Register<IExchangeCredentialReader, ExchangeCredentialReader>();
         
-            container.RegisterDecorator<IExchangeCreation, ExchangeCreationWithAlreadyExists>();
-            container.Register<IExchangeCreation, ExchangeCreation>();
+            container.RegisterDecorator<IExchangeCredentialCreation, ExchangeCreationWithAlreadyExists>();
+            container.Register<IExchangeCredentialCreation, ExchangeCredentialCreation>();
             container.Register<IExchangeDelete, ExchangeDelete>();
         }
 

@@ -7,19 +7,19 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ExchangeApi.Controllers
 {
-    [Route("/api/exchanges")]
+    [Route("/api/exchanges/")]
     public class ExchangeController : Controller
     {
-        public IExchangeCreation ExchangeCreation { get; }
+        public IExchangeCredentialCreation ExchangeCredentialCreation { get; }
 
-        public IExchangeReader ExchangeReader { get; }
+        public IExchangeCredentialReader ExchangeCredentialReader { get; }
 
         public IExchangeDelete ExchangeDelete { get; }
 
-        public ExchangeController(IExchangeCreation exchangeCreation, IExchangeReader exchangeReader, IExchangeDelete exchangeDelete)
+        public ExchangeController(IExchangeCredentialCreation exchangeCredentialCreation, IExchangeCredentialReader exchangeCredentialReader, IExchangeDelete exchangeDelete)
         {
-            ExchangeCreation = exchangeCreation;
-            ExchangeReader = exchangeReader;
+            ExchangeCredentialCreation = exchangeCredentialCreation;
+            ExchangeCredentialReader = exchangeCredentialReader;
             ExchangeDelete = exchangeDelete;
         }
 
@@ -27,7 +27,7 @@ namespace ExchangeApi.Controllers
         [Route("")]
         public async Task<IActionResult> Create([FromBody] ExchangeModel exchangeModel)
         {
-            var exchange = await ExchangeCreation.Create(exchangeModel);
+            var exchange = await ExchangeCredentialCreation.Create(exchangeModel);
 
             return Created(string.Empty, exchange);
         }
@@ -36,16 +36,16 @@ namespace ExchangeApi.Controllers
         [Route("{exchangeId}")]
         public async Task<IActionResult> Delete(Guid exchangeId)
         {
-            var exchange = await ExchangeReader.Get(exchangeId);
+            var exchangeCredential = await ExchangeCredentialReader.Get(exchangeId);
 
-            if (exchange == null) 
+            if (exchangeCredential == null) 
             {
                 return NotFound();
             }
 
-            var exchangeDelete = await ExchangeDelete.Delete(exchange);
+            var exchangeDelete = await ExchangeDelete.Delete(exchangeCredential);
 
-            return Ok(exchange);
+            return Ok(exchangeCredential);
         }
 
 
@@ -53,19 +53,32 @@ namespace ExchangeApi.Controllers
         [Route("{exchangeId}")]
         public async Task<IActionResult> Get(Guid exchangeId)
         {
-            var exchange = await ExchangeReader.Get(exchangeId);
+            var exchangeCredential = await ExchangeCredentialReader.Get(exchangeId);
 
-            if (exchange == null) 
+            if (exchangeCredential == null) 
             {
                 return NotFound();
             }
-            return Ok(exchange);
+            return Ok(exchangeCredential);
+        }
+
+        [HttpGet]
+        [Route("users/{userId}/credentials")]
+        public async Task<IActionResult> GetByUserId(Guid userId)
+        {
+            var exchangeCredential = await ExchangeCredentialReader.GetByUserID(userId);
+
+            if (exchangeCredential == null) 
+            {
+                return NotFound();
+            }
+            return Ok(exchangeCredential);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var exchange = await ExchangeReader.Get();
+            var exchange = await ExchangeCredentialReader.Get();
             return Ok(exchange);
         }
     }

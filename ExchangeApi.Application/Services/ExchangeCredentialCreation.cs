@@ -4,11 +4,11 @@ using ExchangeApi.Domain.Repositories;
 
 namespace ExchangeApi.Application.Services 
 {
-    public class ExchangeCreation : IExchangeCreation
+    public class ExchangeCredentialCreation : IExchangeCredentialCreation
     {
         public IExchangeWriter ExchangeWriter { get; }
 
-        public ExchangeCreation(IExchangeWriter exchangeWriter)
+        public ExchangeCredentialCreation(IExchangeWriter exchangeWriter)
         {
             ExchangeWriter = exchangeWriter;
         }

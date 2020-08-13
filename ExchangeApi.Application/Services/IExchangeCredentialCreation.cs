@@ -3,7 +3,7 @@ using ExchangeApi.Domain.Entities;
 
 namespace ExchangeApi.Application.Services
 {
-    public interface IExchangeCreation 
+    public interface IExchangeCredentialCreation 
     {
         Task<ExchangeCredential> Create(ExchangeModel exchangeModel);
     }

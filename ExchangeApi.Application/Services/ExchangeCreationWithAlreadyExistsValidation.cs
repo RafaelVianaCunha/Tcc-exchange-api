@@ -5,21 +5,21 @@ using ExchangeApi.Domain.Repositories;
 
 namespace ExchangeApi.Application.Services 
 {
-    public class ExchangeCreationWithAlreadyExists : IExchangeCreation
+    public class ExchangeCreationWithAlreadyExists : IExchangeCredentialCreation
     {
-        public IExchangeReader ExchangeReader { get; }
+        public IExchangeCredentialReader ExchangeReader { get; }
 
-        public IExchangeCreation ExchangeCreation { get; }
+        public IExchangeCredentialCreation ExchangeCredentialCreation { get; }
 
-        public ExchangeCreationWithAlreadyExists(IExchangeCreation exchangeCreation, IExchangeReader exchangeReader)
+        public ExchangeCreationWithAlreadyExists(IExchangeCredentialCreation exchangeCredentialCreation, IExchangeCredentialReader exchangeReader)
         {
-            ExchangeCreation = exchangeCreation;
+            ExchangeCredentialCreation = exchangeCredentialCreation;
             ExchangeReader = exchangeReader;
         }
 
         public async Task<ExchangeCredential> Create(ExchangeModel exchangeModel)
         {
-            return await ExchangeCreation.Create(exchangeModel);
+            return await ExchangeCredentialCreation.Create(exchangeModel);
         }
     }
 }

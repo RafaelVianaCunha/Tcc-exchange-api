@@ -5,9 +5,11 @@ using ExchangeApi.Domain.Entities;
 
 namespace ExchangeApi.Domain.Repositories 
 {
-    public interface IExchangeReader
+    public interface IExchangeCredentialReader
     {
         Task<ExchangeCredential> Get(Guid exchangeId);
+
+        Task<ExchangeCredential> GetByUserID(Guid userID);
 
         Task<IReadOnlyCollection<ExchangeCredential>> Get();
 
