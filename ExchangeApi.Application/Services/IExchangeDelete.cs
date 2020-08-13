@@ -6,6 +6,6 @@ namespace ExchangeApi.Application.Services
 {
     public interface IExchangeDelete
     {
-        Task<Exchange> Delete(Exchange exchange);
+        Task<ExchangeCredential> Delete(ExchangeCredential exchange);
     }
 }

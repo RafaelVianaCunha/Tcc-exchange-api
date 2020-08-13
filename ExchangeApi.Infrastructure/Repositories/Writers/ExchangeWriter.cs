@@ -14,7 +14,7 @@ namespace ExchangeApi.Infrastructure.Repositories.Writers
         }
         public ExchangeDbContext ExchangeDbContext { get; }
         
-        public async Task<Exchange> Create(Exchange exchange)
+        public async Task<ExchangeCredential> Create(ExchangeCredential exchange)
         {
             await ExchangeDbContext.Exchanges.AddAsync(exchange);
             await ExchangeDbContext.SaveChangesAsync();
@@ -22,7 +22,7 @@ namespace ExchangeApi.Infrastructure.Repositories.Writers
             return exchange;
         }
 
-        public async Task<Exchange> Update(Exchange exchange)
+        public async Task<ExchangeCredential> Update(ExchangeCredential exchange)
         {
             ExchangeDbContext.Exchanges.Attach(exchange);
             ExchangeDbContext.Entry(exchange).State = EntityState.Modified;
@@ -33,7 +33,7 @@ namespace ExchangeApi.Infrastructure.Repositories.Writers
         }
 
         
-        public async Task<Exchange> Delete(Exchange exchange)
+        public async Task<ExchangeCredential> Delete(ExchangeCredential exchange)
         {
             return await Update(exchange.Delete());
         }

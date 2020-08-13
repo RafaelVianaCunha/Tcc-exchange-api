@@ -5,10 +5,10 @@ namespace ExchangeApi.Domain.Repositories
 {
     public interface IExchangeWriter
     {
-        Task<Exchange> Create(Exchange exchange);
+        Task<ExchangeCredential> Create(ExchangeCredential exchange);
 
-        Task<Exchange> Update(Exchange exchange);
+        Task<ExchangeCredential> Update(ExchangeCredential exchange);
 
-        Task<Exchange> Delete(Exchange exchange);
+        Task<ExchangeCredential> Delete(ExchangeCredential exchange);
     }
 }

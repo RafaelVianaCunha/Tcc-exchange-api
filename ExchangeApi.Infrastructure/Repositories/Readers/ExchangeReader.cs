@@ -22,12 +22,12 @@ namespace ExchangeApi.Infrastructure
             return ExchangeDbContext.Exchanges.AnyAsync(x => x.Id == exchangeId);
         }
 
-        public Task<Exchange> Get(Guid exchangeId)
+        public Task<ExchangeCredential> Get(Guid exchangeId)
         {
             return ExchangeDbContext.Exchanges.SingleOrDefaultAsync(x => x.Id == exchangeId);
         }
 
-        public async Task<IReadOnlyCollection<Exchange>> Get()
+        public async Task<IReadOnlyCollection<ExchangeCredential>> Get()
         {
            return await ExchangeDbContext.Exchanges.Where(x => x.DeletedAt != null).ToListAsync();
         }

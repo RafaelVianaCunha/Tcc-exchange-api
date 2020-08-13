@@ -7,9 +7,9 @@ namespace ExchangeApi.Domain.Repositories
 {
     public interface IExchangeReader
     {
-        Task<Exchange> Get(Guid exchangeId);
+        Task<ExchangeCredential> Get(Guid exchangeId);
 
-        Task<IReadOnlyCollection<Exchange>> Get();
+        Task<IReadOnlyCollection<ExchangeCredential>> Get();
 
         Task<bool> Any(Guid exchangeId);
     }

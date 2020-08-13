@@ -2,7 +2,7 @@ using System;
 
 namespace ExchangeApi.Domain.Entities 
 {
-    public class Exchange
+    public class ExchangeCredential
     {
         public Guid Id { get; private set; }
         public Guid UserId { get; set ; }
@@ -12,7 +12,7 @@ namespace ExchangeApi.Domain.Entities
         public DateTime CreatedAt { get; private set; }
         public DateTime? DeletedAt { get; private set; }
 
-        public Exchange(Guid userId , String apiKey, String apiSecret, String name)
+        public ExchangeCredential(Guid userId , String apiKey, String apiSecret, String name)
         {
             Id = Guid.NewGuid();
             UserId = Guid.NewGuid();
@@ -21,7 +21,7 @@ namespace ExchangeApi.Domain.Entities
             Name = name;
             CreatedAt = DateTime.UtcNow;
         }
-        private Exchange(
+        private ExchangeCredential(
             Guid id,
             Guid userId, 
             String apiKey,  
@@ -37,7 +37,7 @@ namespace ExchangeApi.Domain.Entities
             Name = name;
         }
 
-        private Exchange(
+        private ExchangeCredential(
             Guid id, 
             DateTime createdAt, 
             DateTime deletedAt)
@@ -47,7 +47,7 @@ namespace ExchangeApi.Domain.Entities
             DeletedAt = deletedAt;
         }
 
-        public Exchange Delete()
+        public ExchangeCredential Delete()
         {
             DeletedAt = DateTime.UtcNow;
             return this;

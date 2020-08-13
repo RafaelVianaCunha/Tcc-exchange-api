@@ -17,7 +17,7 @@ namespace ExchangeApi.Application.Services
             ExchangeReader = exchangeReader;
         }
 
-        public async Task<Exchange> Create(ExchangeModel exchangeModel)
+        public async Task<ExchangeCredential> Create(ExchangeModel exchangeModel)
         {
             return await ExchangeCreation.Create(exchangeModel);
         }

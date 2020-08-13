@@ -14,7 +14,7 @@ namespace ExchangeApi.Application.Services
             ExchangeWrite = exchangeWrite;
         }
 
-        public async Task<Exchange> Update(Exchange exchange, ExchangeModel exchangeModel)
+        public async Task<ExchangeCredential> Update(ExchangeCredential exchange, ExchangeModel exchangeModel)
         {
             exchange.UserId = exchangeModel.UserId;
             exchange.ApiSecret = exchangeModel.ApiSecret;

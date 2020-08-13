@@ -14,7 +14,7 @@ namespace ExchangeApi.Application.Services
             ExchangeWrite = exchangeWrite;
         }
 
-        public async Task<Exchange> Delete(Exchange exchange)
+        public async Task<ExchangeCredential> Delete(ExchangeCredential exchange)
         {
             return await ExchangeWrite.Delete(exchange);
         }

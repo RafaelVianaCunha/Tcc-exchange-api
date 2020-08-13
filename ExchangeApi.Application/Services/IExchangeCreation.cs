@@ -5,6 +5,6 @@ namespace ExchangeApi.Application.Services
 {
     public interface IExchangeCreation 
     {
-        Task<Exchange> Create(ExchangeModel exchangeModel);
+        Task<ExchangeCredential> Create(ExchangeModel exchangeModel);
     }
 }

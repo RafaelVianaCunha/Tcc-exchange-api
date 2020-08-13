@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ExchangeApi.Infrastructure
 {
-    public class ExchangeConfiguration : IEntityTypeConfiguration<Exchange>
+    public class ExchangeConfiguration : IEntityTypeConfiguration<ExchangeCredential>
     {
-        public void Configure(EntityTypeBuilder<Exchange> builder)
+        public void Configure(EntityTypeBuilder<ExchangeCredential> builder)
         {
             builder.ToTable("Exchanges");
             
