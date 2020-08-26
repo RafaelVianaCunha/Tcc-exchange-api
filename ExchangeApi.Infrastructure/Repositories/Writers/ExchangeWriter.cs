@@ -16,7 +16,7 @@ namespace ExchangeApi.Infrastructure.Repositories.Writers
         
         public async Task<ExchangeCredential> Create(ExchangeCredential exchange)
         {
-            await ExchangeDbContext.Exchanges.AddAsync(exchange);
+            await ExchangeDbContext.ExchangeCredential.AddAsync(exchange);
             await ExchangeDbContext.SaveChangesAsync();
 
             return exchange;
@@ -24,7 +24,7 @@ namespace ExchangeApi.Infrastructure.Repositories.Writers
 
         public async Task<ExchangeCredential> Update(ExchangeCredential exchange)
         {
-            ExchangeDbContext.Exchanges.Attach(exchange);
+            ExchangeDbContext.ExchangeCredential.Attach(exchange);
             ExchangeDbContext.Entry(exchange).State = EntityState.Modified;
 
             await ExchangeDbContext.SaveChangesAsync();

@@ -19,23 +19,22 @@ namespace ExchangeApi.Infrastructure
 
         public Task<bool> Any(Guid exchangeId)
         {
-            return ExchangeDbContext.Exchanges.AnyAsync(x => x.Id == exchangeId);
+            return ExchangeDbContext.ExchangeCredential.AnyAsync(x => x.Id == exchangeId && x.DeletedAt == null);
         }
 
         public Task<ExchangeCredential> Get(Guid exchangeId)
         {
-            return ExchangeDbContext.Exchanges.SingleOrDefaultAsync(x => x.Id == exchangeId);
+            return ExchangeDbContext.ExchangeCredential.SingleOrDefaultAsync(x => x.Id == exchangeId && x.DeletedAt == null);
         }
 
         public async Task<IReadOnlyCollection<ExchangeCredential>> Get()
         {
-           return await ExchangeDbContext.Exchanges.Where(x => x.DeletedAt != null).ToListAsync();
+           return await ExchangeDbContext.ExchangeCredential.Where(x => x.DeletedAt == null).ToListAsync();
         }
 
         public Task<ExchangeCredential> GetByUserID(Guid userID)
         {
-            return ExchangeDbContext.Exchanges.SingleOrDefaultAsync(x => x.UserId == userID);
-
+            return ExchangeDbContext.ExchangeCredential.SingleOrDefaultAsync(x => x.UserId == userID && x.DeletedAt == null);
         }
     }
 }

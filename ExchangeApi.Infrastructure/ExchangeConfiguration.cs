@@ -8,7 +8,7 @@ namespace ExchangeApi.Infrastructure
     {
         public void Configure(EntityTypeBuilder<ExchangeCredential> builder)
         {
-            builder.ToTable("Exchanges");
+            builder.ToTable("ExchangeCredential");
             
             builder.HasKey(x => x.Id);
             

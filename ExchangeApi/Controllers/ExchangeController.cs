@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using ExchangeApi.Application;
 using ExchangeApi.Application.Services;
@@ -27,6 +28,10 @@ namespace ExchangeApi.Controllers
         [Route("")]
         public async Task<IActionResult> Create([FromBody] ExchangeModel exchangeModel)
         {
+            if(!ModelState.IsValid){
+                return BadRequest(ModelState.Values.SelectMany(v => v.Errors));
+            }
+            
             var exchange = await ExchangeCredentialCreation.Create(exchangeModel);
 
             return Created(string.Empty, exchange);

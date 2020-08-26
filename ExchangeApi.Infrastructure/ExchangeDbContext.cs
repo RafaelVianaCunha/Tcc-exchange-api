@@ -7,7 +7,7 @@ namespace ExchangeApi.Infrastructure
 {
     public class ExchangeDbContext : DbContext , IDisposable
     {
-        public DbSet<ExchangeCredential> Exchanges { get; set; }
+        public DbSet<ExchangeCredential> ExchangeCredential { get; set; }
 
         protected ExchangeDbContext()
         {

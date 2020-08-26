@@ -15,7 +15,7 @@ namespace ExchangeApi.Domain.Entities
         public ExchangeCredential(Guid userId , String apiKey, String apiSecret, String name)
         {
             Id = Guid.NewGuid();
-            UserId = Guid.NewGuid();
+            UserId = userId;
             ApiKey = apiKey;
             ApiSecret = apiSecret;
             Name = name;
