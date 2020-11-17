@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ExchangeApi.Controllers
 {
-    [Route("/api/exchanges/")]
+    [Route("/api/exchange-credentials")]
     public class ExchangeController : Controller
     {
         public IExchangeCredentialCreation ExchangeCredentialCreation { get; }
